@@ -55,10 +55,7 @@ class HashTable:
         Fill this in.
         '''
         hash_k = self._hash_mod(key)
-        # if storage[hash_k] is not None:
-        #   pair = LinkedPair(hash_k, storage[hash_k])
-        #   pair.next = LinkedPair(hash_k, value)
-        # else:
+
         self.storage[hash_k] = value
 
 
