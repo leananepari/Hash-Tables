@@ -136,7 +136,21 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        data = self.storage
+        self.capacity = self.capacity * 2
+        self.storage = [None] * self.capacity
+
+        for i in data:
+          if i is not None:
+            node = i
+            while True:
+              if node is None:
+                break
+              else:
+                self.insert(node.key, node.value)
+                node = node.next
+        
+       
 
 
 
