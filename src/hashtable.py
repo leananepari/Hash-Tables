@@ -59,7 +59,10 @@ class HashTable:
         if self.storage[hash_k] is not None:
           node = self.storage[hash_k]
           while True:
-            if node.next is not None:
+            if node.key == key:
+              node.value = value
+              break
+            elif node.next is not None:
               node = node.next
             else:
               node.next = LinkedPair(key, value)
@@ -78,7 +81,29 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        hash_k = self._hash_mod(key)
+
+        if self.storage[hash_k] is None:
+          return 'Key is not found'
+        else:
+          prev = self.storage[hash_k]
+          node = self.storage[hash_k]
+          nextNode = node.next
+          while True:
+            if node is None:
+              return 'Key is not found'
+            elif node.key == key: 
+              if nextNode is None and prev.key == node.key:
+                self.storage[hash_k] = None
+                break
+              else:
+                prev.next = nextNode
+                break
+            else:
+              prev = node
+              node = node.next 
+              nextNode = node.next
+
 
 
     def retrieve(self, key):
@@ -90,10 +115,11 @@ class HashTable:
         Fill this in.
         '''
         hash_k = self._hash_mod(key)
-        if self.storage[hash_k].key == key:
-          return self.storage[hash_k].value
-        elif self.storage[hash_k] is None:
+
+        if self.storage[hash_k] is None:
           return None
+        elif self.storage[hash_k].key == key:
+          return self.storage[hash_k].value
         else:
           node = self.storage[hash_k]
           while True:
